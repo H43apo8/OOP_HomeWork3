@@ -1,27 +1,70 @@
 package StudentDomen;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-// Класс StudentGroup содержит список студентов (Student)
-class StudentGroup {
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class StudentGroup implements Comparable<StudentGroup>, Iterable<Student> {
+
     private String name;
     private List<Student> students;
 
     public StudentGroup(String name) {
         this.name = name;
-        this.students = new ArrayList<>();
+        students = new ArrayList<>();
     }
 
     public void addStudent(Student student) {
-        this.students.add(student);
+        students.add(student);
+    }
+
+    @Override
+    public int compareTo(StudentGroup o) {
+        return Integer.compare(students.size(), o.students.size());
+    }
+
+    @Override
+    public Iterator<Student> iterator() {
+        return students.iterator();
     }
 
     public String getName() {
         return name;
     }
 
-    public List<Student> getStudents() {
-        return students;
+}
+
+import java.util.Collections;
+
+public class Main {
+
+    public static void main(String[] args) {
+        StudentStream stream = new StudentStream(1);
+
+        StudentGroup group1 = new StudentGroup("Group 1");
+        group1.addStudent(new Student("Student 1"));
+        group1.addStudent(new Student("Student 2"));
+
+        StudentGroup group2 = new StudentGroup("Group 2");
+        group2.addStudent(new Student("Student 3"));
+        group2.addStudent(new Student("Student 4"));
+        group2.addStudent(new Student("Student 5"));
+
+        stream.addGroup(group1);
+        stream.addGroup(group2);
+
+        Collections.sort(stream);
+
+        for (StudentGroup group : stream) {
+            System.out.println("Group: " + group.getName() + " (" + group.students.size() + " students)");
+            for (Student student : group) {
+                System.out.println(" - " + student.getName());
+            }
+        }
     }
+
 }
