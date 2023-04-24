@@ -1,47 +1,27 @@
 package StudentDomen;
-
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class StudentGroup implements Iterable<Student> {
+// Класс StudentGroup содержит список студентов (Student)
+class StudentGroup {
+    private String name;
     private List<Student> students;
 
-    public StudentGroup(List<Student> students) {
-        this.students = students;
+    public StudentGroup(String name) {
+        this.name = name;
+        this.students = new ArrayList<>();
+    }
+
+    public void addStudent(Student student) {
+        this.students.add(student);
+    }
+
+    public String getName() {
+        return name;
     }
 
     public List<Student> getStudents() {
         return students;
     }
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-    }
-
-    // @Override
-    // public Iterator<Student> iterator() {
-    //     return new StudentGroupIterator(students);
-    // }
-
-    @Override
-    public Iterator<Student> iterator() {
-        return new Iterator<Student>(){
-            private int index = 0;
-            @Override
-            public boolean hasNext() {
-               return index<students.size();
-            }
-            @Override
-            public Student next() {
-                if(!hasNext())
-                {
-                    return null;
-                }
-                //counter++;
-                return students.get(index++);        
-            }
-
-        };
-    }
-    
 }
